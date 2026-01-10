@@ -1,13 +1,13 @@
-const imageUrlInput = document.getElementById("imageUrl");
-const addImageBtn = document.getElementById("addImage");
-const deleteImageBtn = document.getElementById("deleteImage");
-const gallery = document.getElementById("gallery");
+const entradaUrlImagen = document.getElementById("urlImagen");
+const botonAgregarImagen = document.getElementById("agregarImagen");
+const botonEliminarImagen = document.getElementById("eliminarImagen");
+const galeria = document.getElementById("galeria");
 
-let selectedImage = null;
+let imagenSeleccionada = null;
 
 // Agregar imagen
-addImageBtn.addEventListener("click", () => {
-    const url = imageUrlInput.value.trim();
+botonAgregarImagen.addEventListener("click", () => {
+    const url = entradaUrlImagen.value.trim();
 
     if (url === "") return;
 
@@ -17,50 +17,50 @@ addImageBtn.addEventListener("click", () => {
         return;
     }
 
-    const img = document.createElement("img");
-    img.src = url;
-    img.classList.add("fade-in");
+    const imagen = document.createElement("img");
+    imagen.src = url;
+    imagen.classList.add("fade-in");
 
     // Seleccionar imagen
-    img.addEventListener("click", () => {
-        document.querySelectorAll(".gallery img").forEach(image => {
-            image.classList.remove("selected");
+    imagen.addEventListener("click", () => {
+        document.querySelectorAll(".galeria img").forEach(img => {
+            img.classList.remove("selected");
         });
-        img.classList.add("selected");
-        selectedImage = img;
+        imagen.classList.add("selected");
+        imagenSeleccionada = imagen;
     });
 
-    gallery.appendChild(img);
-    imageUrlInput.value = "";
+    galeria.appendChild(imagen);
+    entradaUrlImagen.value = "";
 });
 
 
 // Eliminar imagen seleccionada
-deleteImageBtn.addEventListener("click", () => {
-    if (selectedImage) {
-        selectedImage.classList.add("fade-out");
+botonEliminarImagen.addEventListener("click", () => {
+    if (imagenSeleccionada) {
+        imagenSeleccionada.classList.add("fade-out");
         setTimeout(() => {
-            selectedImage.remove();
-            selectedImage = null;
+            imagenSeleccionada.remove();
+            imagenSeleccionada = null;
         }, 500);
     }
 });
 
 // Evento input
-imageUrlInput.addEventListener("input", () => {
-    imageUrlInput.style.borderColor = "#2196f3";
+entradaUrlImagen.addEventListener("input", () => {
+    entradaUrlImagen.style.borderColor = "#2196f3";
 });
 
 // Evento teclado (Enter para agregar imagen)
-imageUrlInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addImageBtn.click();
+entradaUrlImagen.addEventListener("keydown", (evento) => {
+    if (evento.key === "Enter") {
+        botonAgregarImagen.click();
     }
 });
 
 // Atajo de teclado (Delete para eliminar)
-document.addEventListener("keydown", (event) => {
-    if (event.key === "Delete") {
-        deleteImageBtn.click();
+document.addEventListener("keydown", (evento) => {
+    if (evento.key === "Delete") {
+        botonEliminarImagen.click();
     }
 });
